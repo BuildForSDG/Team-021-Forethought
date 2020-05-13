@@ -1,14 +1,38 @@
-const moongoose = require('moongoose');
+const mongoose = require('mongoose');
+const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 
-const { Schema } = moongoose;
+const { Schema } = mongoose;
 
 const appointmentSchema = new Schema({
-  consultant_id: { type: moongoose.Schema.Types.ObjectId, ref: 'Consultant' },
-  user_id: { type: moongoose.Schema.Types.ObjectId, ref: 'User' },
+  consultant_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Consultant' },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   scheduled_date: Date,
-  scheduled_time: String
+  scheduled_time: String,
+  appointment_status: String
 
 },
 { timestamps: true });
 
-module.exports = moongoose.model('Appointment', appointmentSchema);
+appointmentSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign({ id: this._id }, process.env.JWT_PRIVATE_KEY);
+  return token;
+}
+
+function validateAppointment(appointment) {
+    const schema = {
+      consultant_id: Joi.string().required(),
+      user_id: Joi.string().required(),
+      scheduled_date: Joi.string().required().strict(),
+      scheduled_time: Joi.string().required().strict(),
+      appointment_status: Joi.string().required().strict()
+    }
+  
+    return Joi.validate(appointment, schema);
+  }
+
+//module.exports = mongoose.model('Appointment', appointmentSchema);
+const Appointment = mongoose.model('Appointment', appointmentSchema);
+
+exports.Appointment = Appointment;
+exports.validateAppointment = validateAppointment;
