@@ -6,6 +6,7 @@ require('./services/dbCon');
 const usersRoute = require('./routes/users')
 const consultantsRoute = require('./routes/consultants')
 const authRoute = require('./routes/auth');
+const appointmentRoute = require('./routes/assignConsultants');
 
 
 const apiPort = process.env.PORT || 4001;
@@ -24,6 +25,9 @@ app.use('/api/consultants',consultantsRoute);
 
 //Handle login: users and consultants
 app.use('/api/auth',authRoute);
+
+//Handles appointments of consultants and users.
+app.use('/api/appointments',appointmentRoute);
 
 
 app.get('/', (req, res) => res.send('#BuildForSDG'));
