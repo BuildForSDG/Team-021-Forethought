@@ -8,7 +8,7 @@ require('./services/dbCon');
 const testRouter = require('./routes/test');
 const usersRoute = require('./routes/users');
 const consultantsRoute = require('./routes/consultants');
-
+const appointmentRoute = require('./routes/assignConsultants');
 
 const apiPort = process.env.PORT || 4001;
 
@@ -27,6 +27,9 @@ app.use('/api/users', usersRoute);
 
 // Consultant routes
 app.use('/api/consultants', consultantsRoute);
+
+//appointment routes
+app.use('/api/appointments',appointmentRoute);
 
 
 app.get('/', (req, res) => res.send('#BuildForSDG'));
