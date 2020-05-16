@@ -13,7 +13,9 @@ const consultantSchema = new Schema({
   phone: { type: String, required: true },
   location: { type: String, required: true },
   certification: { type: Array },
-  workplace: { type: String }
+  workplace: { type: String },
+  workplace_latitude: { type: Number, required: true },
+  workplace_longitude: { type: Number, required: true }
 },
 { timestamps: true });
 
