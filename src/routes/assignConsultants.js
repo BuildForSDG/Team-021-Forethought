@@ -112,7 +112,7 @@ router.get('/getClosestConsultant/:longitude&:latitude', async (req, res) => {
           
       });
       console.log(locations);
-      console.log(locations.sort(compareValues('distance', 'asc')))
+      locations.sort(compareValues('distance', 'asc'));
       console.log(locations[0]);
 
        // res.json(consultant);
