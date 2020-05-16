@@ -12,7 +12,10 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   phone: { type: String, required: true },
   location: { type: String, required: true },
-  birth_date: Date
+  birth_date: Date,
+  consultant_id: { type: String, default: 'pending' },
+   user_latitude: { type: Number, required: true },
+  user_longitude: { type: Number, required: true }
 },
 { timestamps: true });
 
